@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import nimblix.in.HealthCareHub.security.JwtAuthFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -35,7 +36,8 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/api/doctors/**",
-                                "/api/hospital/**"
+                                "/api/hospital/**",
+                                "/labtests/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
