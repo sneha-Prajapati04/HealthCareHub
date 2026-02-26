@@ -7,6 +7,7 @@ import nimblix.in.HealthCareHub.repository.HospitalRepository;
 import nimblix.in.HealthCareHub.request.HospitalRegistrationRequest;
 import nimblix.in.HealthCareHub.service.HospitalService;
 import nimblix.in.HealthCareHub.constants.HealthCareConstants;
+import nimblix.in.HealthCareHub.helper.HospitalHelper;
 
 @Service
 @RequiredArgsConstructor
@@ -16,21 +17,13 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     public String registerHospital(HospitalRegistrationRequest request) {
-        // ✅ Check if hospital already exists
+        // Check if hospital already exists
         if (hospitalRepository.findByName(request.getName()).isPresent()) {
             return HealthCareConstants.HOSPITAL_EXISTS;
         }
 
-        // ✅ Build hospital entity
-        Hospital hospital = Hospital.builder()
-                .name(request.getName())
-                .address(request.getAddress())
-                .city(request.getCity())
-                .state(request.getState())
-                .phone(request.getPhone())
-                .email(request.getEmail())
-                .totalBeds(request.getTotalBeds())
-                .build();
+        // Use helper to convert DTO → entity
+        Hospital hospital = HospitalHelper.convertToEntity(request);
 
         hospitalRepository.save(hospital);
 

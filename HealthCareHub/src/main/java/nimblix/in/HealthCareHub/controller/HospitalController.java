@@ -13,7 +13,6 @@ public class HospitalController {
 
     private final HospitalService hospitalService;
 
-    // ✅ Register a new hospital
     @PostMapping("/register")
     public ResponseEntity<String> registerHospital(@RequestBody HospitalRegistrationRequest request) {
         String response = hospitalService.registerHospital(request);
